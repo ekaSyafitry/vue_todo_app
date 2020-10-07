@@ -80,6 +80,7 @@
           @updateM="incompleteActive = false" />
         <modalConfirm type="trash" :completeActive="trashActive" @yesBtn="confirmDelete()"
           @updateM="trashActive = false" />
+        <modalConfirm type="install" :completeActive="installActive" @yesBtn="installModal()" @updateM="installActive=false"/>
       </div>
       </div>
 </template>
@@ -446,13 +447,13 @@
 
   %btnConfirm {
     font-weight: 600;
-    color: #fff;
-    font-size: 16px;
+    border-radius: 17px;
+    font-size: 14px;
   }
 
   .modalComplete {
     @extend %modal;
-    height: 25%;
+    height: 130px;
 
     .title {
       margin-bottom: 30px;
@@ -462,14 +463,27 @@
     }
 
     .btnY {
-      @extend %btn;
+      border: none;
+      background: linear-gradient(71deg, #fa5e6f 30%, #fb9561 70%);
       @extend %btnConfirm;
-      padding: 14px 12px;
+      color: #fff;
+      padding: 10px;
+    }
+
+     .btnYes {
+      border: none;
+      background: linear-gradient(71deg, #fa5e6f 30%, #fb9561 70%);
+      @extend %btnConfirm;
+      color: #fff;
+      padding: 10px 20px;
     }
 
     .btnN {
-      @extend %btn;
-      padding: 14px 14px;
+      // @extend %btn;
+      border: 1px solid #EF5350;
+      background-color: #fff;
+      color: #EF5350;
+      padding: 10px;
       margin-left: 20px;
       @extend %btnConfirm;
     }

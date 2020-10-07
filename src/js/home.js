@@ -32,14 +32,34 @@ export default {
         totalComplete: 0,
         totalIncomplete: 0,
         percent: 0,
-        sum: 0
+        sum: 0,
+        installActive: false,
+        deferredPrompt : null
     }),
     mounted() {
         this.isLoad =true
         this.formateDate()
         this.getData(this.getDate)
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            this.showInstallPromt(e);
+        });
+          
+        window.addEventListener('appinstalled', (evt) => {
+            this.installActive = !this.installActive
+            this.deferredPrompt = null;
+        });
     },
     methods: {
+        installModal(){
+            this.deferredPrompt.prompt();
+            this.installActive = false
+        },
+        showInstallPromt(e){
+            this.deferredPrompt = e;
+            this.installActive = !this.installActive
+            // console.log(this.installActive)
+        },
         countProgress(){
             // console.log(this.current)
             if (this.current === 'all'){

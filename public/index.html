@@ -5,18 +5,22 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!--------------------------- fontAwesome ------------------------------->
   <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+
+  <!---------------------------- fontGoogle -------------------------------->
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
+  
+  <!-------------------------- manifest----------------------------------- -->
+  <link rel='manifest' href='manifest.json'>
+
+  <!----------------------- datePicker------------------------------------ -->
   <script src="https://unpkg.com/vue"></script>
   <script src="https://unpkg.com/vuejs-datepicker"></script>
-
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
+ 
+  <!-- ------------------------------firebase-------------------------------------- -->
   <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
-
-  <!-- TODO: Add SDKs for Firebase products that you want to use
-      https://firebase.google.com/docs/web/setup#available-libraries -->
   <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-database.js"></script>
-
   <script>
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -30,10 +34,9 @@
     appId: "1:789088911649:web:635e46e67245ee84d1be60",
     measurementId: "G-TJLRNJFP6X"
   };
-    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-    // firebase.analytics();
   </script>
+  
   <link rel="icon" href="<%= BASE_URL %>favicon.ico">
   <title>Vue Todo app</title>
 </head>
@@ -43,6 +46,26 @@
     <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
       Please enable it to continue.</strong>
   </noscript>
+  <script>
+		if ('serviceWorker' in navigator){
+			navigator.serviceWorker.register('./sw.js', {scope: '/'}).then(function(registration){
+				console.log('ServiceWorker registration succesfull with scope:', registration.scope);
+			}).catch(function(error){
+				console.log('ServiceWorker registration failed:', error);
+			})
+		}
+		else{
+			console.log('ServiceWorker not supported');
+		}
+
+		// window.addEventListener('beforeinstallprompt', function(event){
+		// 	// console.log('before add to home screen');
+		// 	event.preventDefault();
+		// 	return false;
+		// });
+
+  </script>
+  
   <div id="app"></div>
   <!-- built files will be auto injected -->
 </body>
