@@ -278,6 +278,7 @@
       }
 
       .title {
+        overflow-wrap: anywhere;
         text-transform: capitalize;
         font-weight: 900;
         color: #60563d;

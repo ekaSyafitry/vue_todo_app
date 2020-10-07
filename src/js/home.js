@@ -41,15 +41,15 @@ export default {
     },
     methods: {
         countProgress(){
-            console.log(this.current)
+            // console.log(this.current)
             if (this.current === 'all'){
-                console.log('sini')
+                // console.log('sini')
                 this.totalComplete = this.todolist_completed.length
                 this.totalIncomplete = this.todolist_incompleted.length
                 this.sum = this.todos.length
                 let num = this.totalComplete / this.sum * 100
                 this.percent = num.toFixed(1);
-                console.log(this.percent)
+                // console.log(this.percent)
                 var elem = document.getElementById("myBar");
                 if(this.todos.length == 0){
                   elem.style.width = "0%";  
@@ -80,7 +80,7 @@ export default {
             else{
             this.todos = this.todolist_incompleted
             }
-            console.log(this.todos)
+            // console.log(this.todos)
             this.countProgress()
         },
         async getData(dt) {
@@ -122,7 +122,7 @@ export default {
             this.complete = td.complete
         },
         confirmComplete() {
-            console.log(this.complete)
+            // console.log(this.complete)
             if (this.complete) {
                 this.database.ref('todolist/' + this.id_todo + '/complete').set(
                     false
@@ -164,7 +164,7 @@ export default {
             this.trashActive = false
         },
         toogleMenu(){
-            console.log('sdjfjkj')
+            // console.log('sdjfjkj')
             this.showMenu = !this.showMenu;
         }
     },
