@@ -72,8 +72,8 @@
           </div>
           </div>
         </div>
-        <modal :modalActive="editActive" @updateModal="editActive = false" :dataModal="dataModal" type="edit" />
-        <modal :modalActive="addActive" type="add" @updateModal="addActive = false" />
+        <modal :modalActive="editActive" @updateModal="editActive = false" :dataModal="dataModal" type="edit"  @updateDate="updateGetDate" />
+        <modal :modalActive="addActive" type="add" @updateModal="addActive = false" @updateDate="updateGetDate"/>
         <modalConfirm type="complete" :completeActive="completeActive" @yesBtn="confirmComplete()"
           @updateM="completeActive = false" />
         <modalConfirm type="incomplete" :completeActive="incompleteActive" @yesBtn="confirmComplete()"
@@ -505,6 +505,10 @@
       .cell.selected {
         background: #EF5350 !important;
         color: #fff;
+      }
+
+      .disabled{
+        color: #ccc;
       }
     }
   }

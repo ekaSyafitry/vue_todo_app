@@ -1,7 +1,6 @@
 <template>
   <div>
     <div :class="[modalActive ? 'bg-modal active' : 'bg-modal']" @click="updateAddActive()"></div>
-    <!-- <form action=""></form> -->
     <form action="" @submit.prevent="addTodo()" :class="[modalActive? 'add-modal active' : 'add-modal']">
       <div style="height:100%; position:relative;" v-if="type=='edit'">
         <h2 v-if="type == 'edit'"> Edit Task</h2>
@@ -46,12 +45,18 @@
   </div>
 </template>
 <script>
+  
   export default {
     name: 'modal',
     props: ['modalActive', 'dataModal', 'type'],
     data: () => ({
       disabledDates: {
-        to: '',
+         customPredictor: function(date) {
+           const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            if (date < today) return true; 
+          return false;
+       }
       },
       database: firebase.database(),
       addData: {
@@ -64,10 +69,6 @@
       vuejsDatepicker
     },
     mounted() {
-      // console.log(this.addData)
-      var d = new Date();
-      d.setDate(d.getDate() - 1);
-      this.disabledDates.to = d
     },
     methods: {
       updateAddActive() {
@@ -83,29 +84,30 @@
           date: frmt_date,
           complete: false
         })
+        this.$emit('updateDate', this.addData.date)
         alert('Success add data !!')
         this.addData.name = ''
         this.addData.notes = ''
         this.addData.date = new Date()
         this.$emit('updateModal')
+       
       },
       addTodo() {
         if (this.type == 'edit') {
-          console.log(this.dataModal)
+          // console.log(this.dataModal)
           let frmt_date = this.dataModal.date.getFullYear() + "-" + (this.dataModal.date.getMonth() + 1) + "-" + this.dataModal.date.getDate()
           this.database.ref('todolist').child(this.dataModal.id).update({
             name: this.dataModal.name,
             notes: this.dataModal.notes,
             date: frmt_date
           });
+          this.$emit('updateDate', this.dataModal.date)
           alert('Success edit data !!')
           this.$emit('updateModal')
         } else if (this.type == 'add') {
           this.submit()
         }
-
       }
-
     }
   }
 </script>

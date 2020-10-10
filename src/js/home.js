@@ -40,7 +40,7 @@ export default {
         this.isLoad =true
         this.formateDate()
         this.getData(this.getDate)
-
+        // console.log(this.getDate)
         window.addEventListener('beforeinstallprompt', (e) => {
             this.showInstallPromt(e);
         });
@@ -51,6 +51,9 @@ export default {
         });
     },
     methods: {
+        updateGetDate(val){
+        this.getDate = val
+        },
         installModal(){
             this.deferredPrompt.prompt();
             this.installActive = false
@@ -69,7 +72,6 @@ export default {
                 this.sum = this.todos.length
                 let num = this.totalComplete / this.sum * 100
                 this.percent = num.toFixed(1);
-                // console.log(this.percent)
                 var elem = document.getElementById("myBar");
                 if(this.todos.length == 0){
                   elem.style.width = "0%";  
@@ -108,7 +110,6 @@ export default {
             await this.database.ref('todolist').orderByChild('date').equalTo(g_date).on('value', (snapshot) => { this.realtimedata(snapshot) })     
         },
         formateDate() {
-            // console.log(f_date)
             let now = new Date()
             if (this.getDate.toDateString() !== now.toDateString()){
                 var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec",];
@@ -117,19 +118,12 @@ export default {
             else{
                 this.sel_date = "Today's tasks"
             }
-            // const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-            // this.sel_date = getDate.getDate() + "/" + (getDate.getMonth() + 1) + "/" + getDate.getFullYear()
-            // this.day = days[getDate.getDay()]
-            // console.log(this.day)
         },
         editData(td) {
             this.editActive = true
             let tgl = new Date(td.date)
-            // console.log(tgl)
             td.date = tgl
             this.dataModal = td
-            // console.log(td)
-            // console.log(this.editaData)
         },
         completeData(td) {
             this.completeActive = true
@@ -184,13 +178,11 @@ export default {
             this.trashActive = false
         },
         toogleMenu(){
-            // console.log('sdjfjkj')
             this.showMenu = !this.showMenu;
         }
     },
     watch: {
         getDate: function (valNew, valOld) {
-            //  console.log(valNew, valOld)
             this.getDate = valNew
             this.formateDate()
             this.getData(valNew)
